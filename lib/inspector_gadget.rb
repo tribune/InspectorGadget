@@ -16,11 +16,11 @@ module InspectorGadget
         define_method(method_with_logging_name) do |*args|
           args_to_log = args.dup
           filter_args(method_name, args_to_log)
-          Rails.logger.info "LDAP LOG: method name: #{method_name}, args: #{args_to_log.inspect}"
+          Rails.logger.info "#{self.class.name} LOG: method name: #{method_name}, args: #{args_to_log.inspect}"
           result = send(method_without_logging_name, *args)
           result_to_log = result.dup rescue result
           filter_result(method_name, result_to_log)
-          Rails.logger.info "LDAP LOG: method name: #{method_name}, args: #{args_to_log.inspect} returned #{result_to_log.inspect}"
+          Rails.logger.info "#{self.class.name} LOG: method name: #{method_name}, args: #{args_to_log.inspect} returned #{result_to_log.inspect}"
           result
         end
 
